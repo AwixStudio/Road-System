@@ -116,28 +116,28 @@ namespace DRS
                 greenLaneWidth = new MinMaxCurve(1, leftCurve, rightCurve);
             }
 
-            if(leftLaneExtensionCurve.keys.Length == 0 || leftLaneExtensionCurve.keys[^1].value != LaneWidth)
+            if (leftLaneExtensionCurve == null || leftLaneExtensionCurve.keys.Length == 0 || leftLaneExtensionCurve.keys[^1].value != LaneWidth)
             {
                 leftLaneExtensionCurve = new AnimationCurve();
                 leftLaneExtensionCurve.AddKey(0, 0);
                 leftLaneExtensionCurve.AddKey(curve.Distance, LaneWidth);
             }
 
-            if (leftLaneNarrowingCurve.keys.Length == 0 || leftLaneNarrowingCurve.keys[0].value != LaneWidth)
+            if (leftLaneNarrowingCurve == null || leftLaneNarrowingCurve.keys.Length == 0 || leftLaneNarrowingCurve.keys[0].value != LaneWidth)
             {
                 leftLaneNarrowingCurve = new AnimationCurve();
                 leftLaneNarrowingCurve.AddKey(0, LaneWidth);
                 leftLaneNarrowingCurve.AddKey(curve.Distance, 0);
             }
 
-            if (rightLaneExtensionCurve.keys.Length == 0 || rightLaneExtensionCurve.keys[^1].value != LaneWidth)
+            if (rightLaneExtensionCurve == null || rightLaneExtensionCurve.keys.Length == 0 || rightLaneExtensionCurve.keys[^1].value != LaneWidth)
             {
                 rightLaneExtensionCurve = new AnimationCurve();
                 rightLaneExtensionCurve.AddKey(0, 0);
                 rightLaneExtensionCurve.AddKey(curve.Distance, LaneWidth);
             }
 
-            if (rightLaneNarrowingCurve.keys.Length == 0 || rightLaneNarrowingCurve.keys[0].value != LaneWidth)
+            if (rightLaneNarrowingCurve == null || rightLaneNarrowingCurve.keys.Length == 0 || rightLaneNarrowingCurve.keys[0].value != LaneWidth)
             {
                 rightLaneNarrowingCurve = new AnimationCurve();
                 rightLaneNarrowingCurve.AddKey(0, LaneWidth);
