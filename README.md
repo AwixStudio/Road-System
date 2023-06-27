@@ -1,7 +1,6 @@
-David's Road System is tool for procedural road generation.
+### David's Road System is tool for procedural road generation.
 
-Road map:
-
+### Road map:
 - ~~Generate road mesh with bezier curve~~. (Added 1.0.0)
   - ~~specify number of lanes~~
   - ~~specify lines types (dashed, single, double)~~
@@ -33,7 +32,7 @@ Road map:
 - Speed limit signs
 
 
-How to install:
+### How to install:
 1. In Unity open Package Manager. Window -> Package Manager.
 2. Click the Plus button.
 3. Select "add package from git URL"
