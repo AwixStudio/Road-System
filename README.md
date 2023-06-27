@@ -40,3 +40,11 @@ https://github.com/AwixStudio/Road-System/assets/29355013/4377aab1-9dfa-4aff-bd0
 3. Select "add package from git URL"
 4. https://github.com/AwixStudio/Road-System.git#main
 5. Add.
+
+### How to use:
+1. GameObject -> RoadSystem -> Road.
+2. Toggle gizmos ON.
+3. Assign materials to mesh renderer (M_Asphalt, M_Lines).
+4. Now you should be able to move gizmos and regenerate mesh (it should be visible if you assigned materials).
+5. You can control lanes numbers, road sides etc... by RoadGenerator component assigned to object.
+6. You can access extra curve operations by right click on BezierCurveMB component.![image](https://github.com/AwixStudio/Road-System/assets/29355013/b4bd17ca-2853-4aa4-b307-df56b7d2c4f6)
