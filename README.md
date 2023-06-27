@@ -2,15 +2,15 @@ David's Road System is tool for procedural road generation.
 
 Road map:
 
-- Generate road mesh with bezier curve.
-  - specify number of lanes
-  - specify lines types (dashed, single, double)
-  - specify extra road side width
-  - specify green lane width
-  - specify road lane extensions/narrowings
-  - snap road to another road
-  - lock road to another road
-  - include asphalt material
+- ~~Generate road mesh with bezier curve~~. (Added 1.0.0)
+  - ~~specify number of lanes~~
+  - ~~specify lines types (dashed, single, double)~~
+  - ~~specify extra road side width~~
+  - ~~specify green lane width~~
+  - ~~specify road lane extensions/narrowings~~
+  - ~~snap road to another road~~
+  - ~~lock road to another road~~
+  - ~~include asphalt material~~
 - Generate crossroad mesh tool
 - Parking generation 
 - Pavements generation tool
