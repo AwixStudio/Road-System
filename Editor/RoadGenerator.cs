@@ -116,7 +116,7 @@ namespace DRS
                 greenLaneWidth = new MinMaxCurve(1, leftCurve, rightCurve);
             }
 
-            if (leftLaneExtensionCurve == null || leftLaneExtensionCurve.keys.Length == 0 || leftLaneExtensionCurve.keys[^1].value != LaneWidth)
+            if(leftLaneExtensionCurve == null || leftLaneExtensionCurve.keys.Length == 0 || leftLaneExtensionCurve.keys[^1].value != LaneWidth)
             {
                 leftLaneExtensionCurve = new AnimationCurve();
                 leftLaneExtensionCurve.AddKey(0, 0);
@@ -456,6 +456,10 @@ namespace DRS
 
             mesh.RecalculateTangents();
             mesh.RecalculateNormals();
+
+            MeshRenderer renderer = GetComponent<MeshRenderer>();
+            Material[] materials = new Material[2] { RoadSystemSettings.GetOrCreateSettings().AsphaltMaterial, RoadSystemSettings.GetOrCreateSettings().RoadLineMaterial };
+            renderer.sharedMaterials = materials;
 
             meshFilter.mesh = mesh;
         }

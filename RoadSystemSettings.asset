@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17bfb19c57f3f9b47bfcd91eafb6c396, type: 3}
+  m_Name: RoadSystemSettings
+  m_EditorClassIdentifier: 
+  asphaltMat: {fileID: 2100000, guid: 178b734badcbb3941b6e18702af383a8, type: 2}
+  roadLineMat: {fileID: 2100000, guid: 1a3460622710f164280b8b9e2627b625, type: 2}
