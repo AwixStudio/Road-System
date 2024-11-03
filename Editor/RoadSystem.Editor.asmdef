@@ -2,31 +2,13 @@
     "name": "RoadSystem.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:44ab5dd58879d4b44afc94254b5225a1",
-        "GUID:5aef5b14f24211f48831bc2174c86daf"
+        "GUID:36fb90e92be771f48b5ff6269bb62183",
+        "GUID:5216e52929c2398468ce5c2e3938f082"
     ],
-    "includePlatforms": [],
-    "excludePlatforms": [
-        "Android",
-        "EmbeddedLinux",
-        "GameCoreScarlett",
-        "GameCoreXboxOne",
-        "iOS",
-        "LinuxStandalone64",
-        "CloudRendering",
-        "Lumin",
-        "macOSStandalone",
-        "PS4",
-        "PS5",
-        "Stadia",
-        "Switch",
-        "tvOS",
-        "WSA",
-        "WebGL",
-        "WindowsStandalone32",
-        "WindowsStandalone64",
-        "XboxOne"
+    "includePlatforms": [
+        "Editor"
     ],
+    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
