@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bfb19c57f3f9b47bfcd91eafb6c396, type: 3}
   m_Name: RoadSystemSettings
   m_EditorClassIdentifier: 
-  asphaltMat: {fileID: 2100000, guid: 178b734badcbb3941b6e18702af383a8, type: 2}
-  roadLineMat: {fileID: 2100000, guid: 1a3460622710f164280b8b9e2627b625, type: 2}
+  <AsphaltMat>k__BackingField: {fileID: 2100000, guid: 178b734badcbb3941b6e18702af383a8, type: 2}
+  <RoadLineMat>k__BackingField: {fileID: 2100000, guid: 1a3460622710f164280b8b9e2627b625, type: 2}

@@ -1,14 +1,10 @@
 {
-    "name": "RoadSystem.Editor",
+    "name": "RoadSystem.EditorData",
     "rootNamespace": "",
     "references": [
-        "GUID:44ab5dd58879d4b44afc94254b5225a1",
-        "GUID:0795fd9e7d2f51742af323a52b2d63c1",
         "GUID:5aef5b14f24211f48831bc2174c86daf"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

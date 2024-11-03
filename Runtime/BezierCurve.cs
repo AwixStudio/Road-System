@@ -23,15 +23,6 @@ namespace DRS
             P3 = p3;
             CaluclateDistance();
         }
-
-        public BezierCurve(BezierCurveMB bezierCurveMB)
-        {
-            P0 = bezierCurveMB.WordlP0;
-            P1 = bezierCurveMB.WordlP1;
-            P2 = bezierCurveMB.WordlP2;
-            P3 = bezierCurveMB.WordlP3;
-            CaluclateDistance();
-        }
         
         private void CaluclateDistance()
         {
