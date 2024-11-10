@@ -19,29 +19,92 @@ namespace DRS
         [Header("Road")]
         public int LeftLanes = 2;
         public int RightLanes = 2;
+        
         public float CurveAccuracy = 1f;
+        
         public bool LeftRoadSide;
-        public float LeftRoadSideWidth = 0;
+        public float LeftRoadSideWidth = 1;
         public float GetLeftRoadSideWidth => LeftRoadSide ? LeftRoadSideWidth : 0;
+        
         public bool RightRoadSide;
-        public float RightRoadSideWidth = 0;
+        public float RightRoadSideWidth = 1;
         public float GetRightRoadSideWidth => RightRoadSide ? RightRoadSideWidth : 0;
+        
         [Header("Extensions")]
         public bool LeftLaneExtension;
+        public ExtentionEditType LeftLaneExtensionEditType;        
         public AnimationCurve LeftLaneExtensionCurve;
+
         public bool LeftLaneNarrowing;
+        public ExtentionEditType LeftLaneNarrowingEditType;
         public AnimationCurve LeftLaneNarrowingCurve;
+
         public bool RightLaneExtension;
+        public ExtentionEditType RightLaneExtensionEditType;
         public AnimationCurve RightLaneExtensionCurve;
+
         public bool RightLaneNarrowing;
+        public ExtentionEditType RightLaneNarrowingEditType;
         public AnimationCurve RightLaneNarrowingCurve;
-        public float GetLeftExtenstionWidth(float distance) => (LeftLaneExtension) ? (LeftLaneNarrowing ? Mathf.Max(LeftLaneExtensionCurve.Evaluate(distance), LeftLaneNarrowingCurve.Evaluate(distance)) : LeftLaneExtensionCurve.Evaluate(distance)) : (LeftLaneNarrowing ? LeftLaneNarrowingCurve.Evaluate(distance) : 0);
-        public float GetRightExtenstionWidth(float distance) => (RightLaneExtension) ? (RightLaneNarrowing ? Mathf.Max(RightLaneExtensionCurve.Evaluate(distance), RightLaneNarrowingCurve.Evaluate(distance)) : RightLaneExtensionCurve.Evaluate(distance)) : (RightLaneNarrowing ? RightLaneNarrowingCurve.Evaluate(distance) : 0);
+
+        public float GetLeftExtenstionWidth(float distance)
+        {
+            if (LeftLaneExtension)
+            {
+                if (LeftLaneNarrowing)
+                {
+                    return Mathf.Max(LeftLaneExtensionCurve.Evaluate(distance), LeftLaneNarrowingCurve.Evaluate(distance));
+                }
+                else
+                {
+                    return LeftLaneExtensionCurve.Evaluate(distance);
+                }
+            }
+            else
+            {
+                if(LeftLaneNarrowing)
+                {
+                    return LeftLaneNarrowingCurve.Evaluate(distance);
+                }
+                else
+                {
+                    return 0;
+                }
+            }             
+        }
+
+        public float GetRightExtenstionWidth(float distance)
+        {
+            if (RightLaneExtension)
+            {
+                if (RightLaneNarrowing)
+                {
+                    return Mathf.Max(RightLaneExtensionCurve.Evaluate(distance), RightLaneNarrowingCurve.Evaluate(distance));
+                }
+                else
+                {
+                    return RightLaneExtensionCurve.Evaluate(distance);
+                }
+            }
+            else
+            {
+                if (RightLaneNarrowing)
+                {
+                    return RightLaneNarrowingCurve.Evaluate(distance);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
 
         public bool GreenLane;
-        public MinMaxCurve GreenLaneWidth;
-        public float GetRightGreenLaneWidth(float distance) => GreenLane ? GreenLaneWidth.curveMax.Evaluate(distance) : 0;
-        public float GetLeftGreenLaneWidth(float distance) => GreenLane ? GreenLaneWidth.curveMin.Evaluate(distance) : 0;
+        public ExtentionEditType GreenLaneEditType;
+        public float GreenLaneWidth;
+        public MinMaxCurve GreenLaneWidthCurve;
+        public float GetRightGreenLaneWidth(float distance) => GreenLane ? (GreenLaneEditType == ExtentionEditType.Custom ? GreenLaneWidthCurve.curveMax.Evaluate(distance) : GreenLaneWidth * 0.5f) : 0;
+        public float GetLeftGreenLaneWidth(float distance) => GreenLane ? (GreenLaneEditType == ExtentionEditType.Custom ? GreenLaneWidthCurve.curveMin.Evaluate(distance) : -GreenLaneWidth * 0.5f) : 0;
 
         [Header("Lines")]
         public LineType[] LineTypes = new LineType[0];

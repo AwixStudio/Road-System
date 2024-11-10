@@ -26,16 +26,25 @@ namespace DRS
         SerializedProperty rightRoadSideWidth;
         
         SerializedProperty leftLaneExtension;
+        SerializedProperty leftLaneExtensionEditType;
         SerializedProperty leftLaneExtensionCurve;
+
         SerializedProperty leftLaneNarrowing;
+        SerializedProperty leftLaneNarrowingEditType;
         SerializedProperty leftLaneNarrowingCurve;
+
         SerializedProperty rightLaneExtension;
+        SerializedProperty rightLaneExtensionEditType;
         SerializedProperty rightLaneExtensionCurve;
+
         SerializedProperty rightLaneNarrowing;
+        SerializedProperty rightLaneNarrowingEditType;
         SerializedProperty rightLaneNarrowingCurve;
         
         SerializedProperty greenLane;
+        SerializedProperty greenLaneEditType;
         SerializedProperty greenLaneWidth;
+        SerializedProperty greenLaneWidthCurve;
         
         SerializedProperty lineTypes;
         SerializedProperty dashedLineLong;
@@ -52,16 +61,25 @@ namespace DRS
             rightRoadSideWidth = serializedObject.FindProperty("RightRoadSideWidth");
 
             leftLaneExtension = serializedObject.FindProperty("LeftLaneExtension");
+            leftLaneExtensionEditType = serializedObject.FindProperty("LeftLaneExtensionEditType");
             leftLaneExtensionCurve = serializedObject.FindProperty("LeftLaneExtensionCurve");
+
             leftLaneNarrowing = serializedObject.FindProperty("LeftLaneNarrowing");
+            leftLaneNarrowingEditType = serializedObject.FindProperty("LeftLaneNarrowingEditType");
             leftLaneNarrowingCurve = serializedObject.FindProperty("LeftLaneNarrowingCurve");
+
             rightLaneExtension = serializedObject.FindProperty("RightLaneExtension");
+            rightLaneExtensionEditType = serializedObject.FindProperty("RightLaneExtensionEditType");
             rightLaneExtensionCurve = serializedObject.FindProperty("RightLaneExtensionCurve");
+
             rightLaneNarrowing = serializedObject.FindProperty("RightLaneNarrowing");
+            rightLaneNarrowingEditType = serializedObject.FindProperty("RightLaneNarrowingEditType");
             rightLaneNarrowingCurve = serializedObject.FindProperty("RightLaneNarrowingCurve");
 
             greenLane = serializedObject.FindProperty("GreenLane");
+            greenLaneEditType = serializedObject.FindProperty("GreenLaneEditType");
             greenLaneWidth = serializedObject.FindProperty("GreenLaneWidth");
+            greenLaneWidthCurve = serializedObject.FindProperty("GreenLaneWidthCurve");
 
             lineTypes = serializedObject.FindProperty("LineTypes");
             dashedLineLong = serializedObject.FindProperty("DashedLineLong");
@@ -90,25 +108,47 @@ namespace DRS
 
             EditorGUILayout.PropertyField(leftLaneExtension);
             if (leftLaneExtension.boolValue)
-                EditorGUILayout.PropertyField(leftLaneExtensionCurve);
+            {
+                EditorGUILayout.PropertyField(leftLaneExtensionEditType);
+                if (leftLaneExtensionEditType.enumValueIndex == 1)
+                    EditorGUILayout.PropertyField(leftLaneExtensionCurve);
+            }
 
             EditorGUILayout.PropertyField(leftLaneNarrowing);
             if (leftLaneNarrowing.boolValue)
-                EditorGUILayout.PropertyField(leftLaneNarrowingCurve);
+            {
+                EditorGUILayout.PropertyField(leftLaneNarrowingEditType);
+                if (leftLaneNarrowingEditType.enumValueIndex == 1)
+                    EditorGUILayout.PropertyField(leftLaneNarrowingCurve);
+            }
 
             EditorGUILayout.PropertyField(rightLaneExtension);
             if (rightLaneExtension.boolValue)
-                EditorGUILayout.PropertyField(rightLaneExtensionCurve);
+            {
+                EditorGUILayout.PropertyField(rightLaneExtensionEditType);
+                if (rightLaneExtensionEditType.enumValueIndex == 1)
+                    EditorGUILayout.PropertyField(rightLaneExtensionCurve); 
+            }
 
             EditorGUILayout.PropertyField(rightLaneNarrowing);
             if (rightLaneNarrowing.boolValue)
-                EditorGUILayout.PropertyField(rightLaneNarrowingCurve);
+            {
+                EditorGUILayout.PropertyField(rightLaneNarrowingEditType);
+                if(rightLaneNarrowingEditType.enumValueIndex == 1)                    
+                    EditorGUILayout.PropertyField(rightLaneNarrowingCurve);
+            }
 
             EditorGUILayout.Space();
 
             EditorGUILayout.PropertyField(greenLane);
             if (greenLane.boolValue)
-                EditorGUILayout.PropertyField(greenLaneWidth);
+            {
+                EditorGUILayout.PropertyField(greenLaneEditType);
+                if(greenLaneEditType.enumValueIndex == 0)
+                    EditorGUILayout.PropertyField(greenLaneWidth);
+                else
+                    EditorGUILayout.PropertyField(greenLaneWidthCurve);
+            }
 
             EditorGUILayout.Space();
 
@@ -158,7 +198,7 @@ namespace DRS
             if (road.RightLanes == 0 || road.LeftLanes == 0)
                 road.GreenLane = false;
 
-            if (road.GreenLaneWidth.mode != ParticleSystemCurveMode.TwoCurves)
+            if (road.GreenLaneWidthCurve.mode != ParticleSystemCurveMode.TwoCurves)
             {
                 AnimationCurve rightCurve = new AnimationCurve();
                 rightCurve.AddKey(0, 1);
@@ -174,8 +214,8 @@ namespace DRS
                 leftCurve.AddKey(curve.Distance, -1);
                 AnimationUtility.SetKeyRightTangentMode(leftCurve, 1, AnimationUtility.TangentMode.Linear);
                 AnimationUtility.SetKeyLeftTangentMode(leftCurve, 2, AnimationUtility.TangentMode.Linear);
-                road.GreenLaneWidth = new MinMaxCurve(1, leftCurve, rightCurve);
-            }
+                road.GreenLaneWidthCurve = new MinMaxCurve(1, leftCurve, rightCurve);
+            }            
 
             if (road.LeftLaneExtensionCurve == null || road.LeftLaneExtensionCurve.keys.Length == 0 || road.LeftLaneExtensionCurve.keys[^1].value != LaneWidth)
             {
@@ -183,12 +223,44 @@ namespace DRS
                 road.LeftLaneExtensionCurve.AddKey(0, 0);
                 road.LeftLaneExtensionCurve.AddKey(curve.Distance, LaneWidth);
             }
+            else 
+            {
+                if(road.LeftLaneExtensionEditType == ExtentionEditType.Fast && road.LeftLaneExtensionCurve.keys[^1].time != curve.Distance)
+                {
+                    if (road.LeftLaneExtensionCurve.keys.Length != 2)
+                    {
+                        road.LeftLaneExtensionCurve = new AnimationCurve();
+                        road.LeftLaneExtensionCurve.AddKey(0, 0);
+                        road.LeftLaneExtensionCurve.AddKey(curve.Distance, LaneWidth);
+                    }
+                    road.LeftLaneExtensionCurve.MoveKey(0, new Keyframe(0, 0));
+                    road.LeftLaneExtensionCurve.MoveKey(1, new Keyframe(curve.Distance, LaneWidth));
+                    AnimationUtility.SetKeyLeftTangentMode(road.LeftLaneExtensionCurve, road.LeftLaneExtensionCurve.keys.Length - 1, AnimationUtility.TangentMode.ClampedAuto);
+                }
+            }            
+            
 
             if (road.LeftLaneNarrowingCurve == null || road.LeftLaneNarrowingCurve.keys.Length == 0 || road.LeftLaneNarrowingCurve.keys[0].value != LaneWidth)
             {
                 road.LeftLaneNarrowingCurve = new AnimationCurve();
                 road.LeftLaneNarrowingCurve.AddKey(0, LaneWidth);
                 road.LeftLaneNarrowingCurve.AddKey(curve.Distance, 0);
+            }
+            else
+            {
+                if (road.LeftLaneNarrowingEditType == ExtentionEditType.Fast && road.LeftLaneNarrowingCurve.keys[0].time != curve.Distance)
+                {
+                    if(road.LeftLaneNarrowingCurve.keys.Length != 2)
+                    {
+                        road.LeftLaneNarrowingCurve = new AnimationCurve();
+                        road.LeftLaneNarrowingCurve.AddKey(0, LaneWidth);
+                        road.LeftLaneNarrowingCurve.AddKey(curve.Distance, 0);
+                    }
+
+                    road.LeftLaneNarrowingCurve.MoveKey(0, new Keyframe(0, LaneWidth));
+                    road.LeftLaneNarrowingCurve.MoveKey(1, new Keyframe(curve.Distance, 0));
+                    AnimationUtility.SetKeyRightTangentMode(road.LeftLaneNarrowingCurve, road.LeftLaneNarrowingCurve.keys.Length - 1, AnimationUtility.TangentMode.ClampedAuto);
+                }
             }
 
             if (road.RightLaneExtensionCurve == null || road.RightLaneExtensionCurve.keys.Length == 0 || road.RightLaneExtensionCurve.keys[^1].value != LaneWidth)
@@ -197,12 +269,44 @@ namespace DRS
                 road.RightLaneExtensionCurve.AddKey(0, 0);
                 road.RightLaneExtensionCurve.AddKey(curve.Distance, LaneWidth);
             }
+            else
+            {
+                if (road.RightLaneExtensionEditType == ExtentionEditType.Fast && road.RightLaneExtensionCurve.keys[^1].time != curve.Distance)
+                {
+                    if(road.RightLaneExtensionCurve.keys.Length != 2)
+                    {
+                        road.RightLaneExtensionCurve = new AnimationCurve();
+                        road.RightLaneExtensionCurve.AddKey(0, 0);
+                        road.RightLaneExtensionCurve.AddKey(curve.Distance, LaneWidth);
+                    }
+
+                    road.RightLaneExtensionCurve.MoveKey(0, new Keyframe(0, 0));
+                    road.RightLaneExtensionCurve.MoveKey(1, new Keyframe(curve.Distance, LaneWidth));
+                    AnimationUtility.SetKeyLeftTangentMode(road.RightLaneExtensionCurve, road.RightLaneExtensionCurve.keys.Length - 1, AnimationUtility.TangentMode.ClampedAuto);
+                }
+            }
 
             if (road.RightLaneNarrowingCurve == null || road.RightLaneNarrowingCurve.keys.Length == 0 || road.RightLaneNarrowingCurve.keys[0].value != LaneWidth)
             {
                 road.RightLaneNarrowingCurve = new AnimationCurve();
                 road.RightLaneNarrowingCurve.AddKey(0, LaneWidth);
                 road.RightLaneNarrowingCurve.AddKey(curve.Distance, 0);
+            }
+            else
+            {
+                if (road.RightLaneNarrowingEditType == ExtentionEditType.Fast && road.RightLaneNarrowingCurve.keys[0].time != curve.Distance)
+                {
+                    if(road.RightLaneNarrowingCurve.keys.Length != 2)
+                    {
+                        road.RightLaneNarrowingCurve = new AnimationCurve();
+                        road.RightLaneNarrowingCurve.AddKey(0, LaneWidth);
+                        road.RightLaneNarrowingCurve.AddKey(curve.Distance, 0);
+                    }
+
+                    road.RightLaneNarrowingCurve.MoveKey(0, new Keyframe(0, LaneWidth));
+                    road.RightLaneNarrowingCurve.MoveKey(1, new Keyframe(curve.Distance, 0));
+                    AnimationUtility.SetKeyRightTangentMode(road.RightLaneNarrowingCurve, road.RightLaneNarrowingCurve.keys.Length - 1, AnimationUtility.TangentMode.ClampedAuto);
+                }
             }
 
             if (road.LineTypes.Length != road.LineTypesCount())
